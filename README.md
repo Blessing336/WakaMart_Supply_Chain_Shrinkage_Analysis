@@ -62,6 +62,10 @@ Metrics Calculated from This Table: Units lost by receiving and shipping locatio
 
 4. **DimDate**: This table contains columns like date, month, quarter, and Day of the week.
 
+<br/>
+
+
+
 
 <br/>
 
@@ -456,22 +460,73 @@ In comparison, the **Kano Depot to Kano Market Square** and **Kano Depot to Abuj
 * Immediately review driver logs, vehicle conditions, and time delays on this route.
 
 
+<br/>
+
+# Technical Details
+
+This project used SQL for all stages of data cleaning and analysis, with a focus on uncovering shrinkage patterns across WakaMart's operations between May 2024 and December 2024.
+
+#### Tool Used:
+
+**SQL Server** — for data cleaning, aggregation, and metric calculation
+
+<br/>
+
+#### Data Flow Steps Overview:
+
+**Initial Inspection**: Checked all source tables (DimProduct, DimLocation, FactRetail) for missing values, duplicate entries, inconsistent data types, and ambiguous category names.
+
+**Cleaning & Standardization**: Removed nulls, handled duplicates, converted types.
+
+**Calculated Metrics**: Units lost, shrinkage rates, financial losses, and loss-per-unit calculations using derived columns.
+
+**Analysis**
+
+<br/>
+
+#### Data Cleaning Actions:
+
+Here are the key cleaning operations and why they were necessary:
+
+1. **Handling Missing or Null Values**
+
+Purpose: Ensure analysis was not skewed by incomplete data in critical columns (PlannedUnits, ActualUnitsReceived).
+
+2. **Removing Duplicates**
+
+Purpose: Avoid double-counting shrinkage in shipment or product records.
+
+3. **Normalizing Categorical Fields**
+
+Purpose: Fix inconsistent naming in product names and categories (e.g., “Dairy ” vs. “Dairy”, trailing spaces, and misspellings).
+
+4. **Converting Data Types**
+
+Purpose: Standardize Date columns from VARCHAR to DATE for accurate analysis.
+
+<br/>
+
+# Assumptions and Caveats
+
+#### Assumptions
+
+**Shrinkage Definition**: It is assumed that any instance where PlannedUnits > ActualUnitsReceived indicates a shrinkage event, regardless of whether the discrepancy was due to theft, spoilage, handling error, or recording mismatch.
+
+<br/>
+
+#### Caveats
+**Lack of Shrinkage Cause Labeling**: The dataset did not contain explicit labels for shrinkage causes (e.g., theft vs. spoilage), which limits the precision of intervention strategies.
+
+<br/>
 
 
+<br/>
 
 
+<br/>
 
 
-
-
-
-
-
-
-
-
-
-
+Go to my github *[homepage](https://github.com/Blessing336)*
 
 
 
