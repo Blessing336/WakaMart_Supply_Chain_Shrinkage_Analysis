@@ -319,9 +319,102 @@ The **Buguma Warehouse to Enugu Retail Park** route stands out as the most probl
 In comparison, the **Kano Depot to Kano Market Square** and **Kano Depot to Abuja Urban Shop** routes recorded **26,810** and **25,664** units lost respectively, while the **Apapa Warehouse to Ikeja Supermart** and **Buguma Warehouse to Port Harcourt Mall** routes followed closely with **24,442** and **24,313** units lost.
 
 
+<br/>
 
+<br/>
 
+# Recommendations
 
+## 1. Which Products Are Most Responsible for Shrinkage and How Much Money Are We Losing?
+#### 1.1 Fonio (Acha), Agege Bread, Mallam Dairy, Pepsi Bottle, and Basmati Rice Are High-Shrinkage Products
+
+* Conduct end-to-end product flow audits on these five items from dispatch to shelf.
+
+* Tag each SKU with a high-risk flag in Wakamart’s ERP system to activate stricter loss monitoring.
+
+* Assign shrinkage champions per store to monitor these SKUs and report deviations in real time.
+
+1.2 Fonio (₦146M loss) and Mallam Dairy Are Costing the Business Significantly
+
+Reassess profitability and pricing strategies for top-loss items—adjust margins where necessary.
+
+Place limits on stock quantities for these products in high-loss locations.
+
+Introduce unit-level barcode tracking for dairy products and Fonio to improve traceability.
+
+1.3 Sorghum and Abakaliki Rice Have Net-Negative Margins
+
+Pause all marketing campaigns and discounts related to these products immediately.
+
+Add these SKUs to the “Red List” and send regular updates to procurement and pricing teams.
+
+Evaluate whether to delist or repackage the products for better inventory control.
+
+🚦 Key Question 2: Which Locations Are Losing the Most Inventory and Is It a Regional Pattern?
+2.1 Enugu Retail Park Has the Highest Unit Loss (149,579 Units)
+
+Station Inventory Control Officers full-time at Enugu for inbound and shelf audits.
+
+Enforce double-verification protocols during offloading and inventory intake.
+
+Create a weekly loss report specific to Enugu and escalate any irregularities above 5% deviation.
+
+2.2 Lagos Has the Highest Average Shrinkage Rate (16.13%)
+
+Break down deliveries into smaller, more frequent loads to reduce exposure to loss.
+
+Perform forecast vs. actual delivery reconciliation weekly to detect planning gaps.
+
+Review last-mile partner contracts for Lagos and consider replacements for underperformers.
+
+2.3 Buguma Warehouse Accounts for 225,524 Units Lost
+
+Conduct a full-scale forensic audit of Buguma Warehouse (routes, personnel, SOPs).
+
+Install or audit CCTV footage on loading bays to monitor discrepancies.
+
+Test temporary rerouting of perishable stock via Kano Depot to assess loss reduction.
+
+2.4 Rivers Region Is the Only One with Increasing Shrinkage Over Time
+
+Create a regional shrinkage task force for Rivers with KPIs for recovery.
+
+Launch monthly loss reduction contests between stores in the region.
+
+Mandate weekly shrinkage performance reviews at all Rivers State locations.
+
+🧊 Key Question 3: How Much Shrinkage Comes from Perishable Goods and Is It Worth Investing in Cold Chain?
+3.1 Perishables Account for 32% of Units Lost
+
+Continue to treat non-perishables as the primary target of loss prevention (68%).
+
+Label perishable inventory with shelf-life visibility tracking to minimise spoilage.
+
+Train floor staff on FIFO and stock rotation best practices for perishables.
+
+3.2 Perishables Represent 28% of Financial Loss; Non-Perishables = 72%
+
+Focus budget and operational audits on high-value, non-perishable shrinkage first.
+
+Only allocate cold chain funds for perishables after recovering non-perishable leakages.
+
+Introduce perishables-specific loss KPIs for procurement and warehousing staff.
+
+3.3 Dairy Accounts for ₦1.11 Billion in Losses (38% of Perishable Losses)
+
+Prioritise closed-loop chilled transport for dairy logistics above all other perishables.
+
+Implement digital temperature loggers and alerts in all dairy shipments.
+
+Limit stock quantities of dairy in high-risk locations to ensure rapid turnover.
+
+3.4 Buguma–Enugu Route Has 81% More Perishable Shrinkage Than Other Routes
+
+Immediately review driver logs, vehicle conditions, and time delays on this route.
+
+Pilot third-party logistics (3PL) cold delivery providers on this corridor.
+
+Redesign route schedule to minimise dwell time and heat exposure during transport.**
 
 
 
