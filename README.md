@@ -1,6 +1,6 @@
 # Problem Statement
 
-**WakaMart,** a leading retail and distribution company in Nigeria, launched a **shrinkage analysis** project to **investigate losses caused by under-delivered and missing inventory across its nationwide operations**. The project was initiated in response to rising product-level losses, route-based inefficiencies, and warehouse inconsistencies that have significantly impacted the company’s profitability and logistics efficiency between May 2024 and December 2024.
+**WakaMart,** a retail and distribution company in Nigeria, launched a **shrinkage analysis** project to **investigate losses caused by under-delivered and missing inventory across its nationwide operations**. The project was initiated in response to rising product-level losses, route-based inefficiencies, and warehouse inconsistencies that have significantly impacted the company’s profitability and logistics efficiency between May 2024 and December 2024.
 
 The project focuses on the following Key Performance Indicators (KPIs); **Total Financial Shrinkage (₦)** across all products and locations, **Shrinkage Rate (%)** by region and location (planned vs actual units), **Units Lost** per Product and Top-Shrinking SKUs, **Warehouse and Route-Based** Shrinkage Patterns, and **Perishable vs Non-Perishable** Shrinkage Contribution. 
 
