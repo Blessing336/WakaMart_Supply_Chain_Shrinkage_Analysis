@@ -56,8 +56,12 @@ Metrics Calculated from This Table: Units lost by receiving and shipping locatio
 
 <br/>
 
+<<<<<<< HEAD
 <img src= "WakaMart Retail.png" alt= "Data_Model">
 
+=======
+![Data_Model](https://github.com/Blessing336/WakaMart_Supply_Chain_Shrinkage_Analysis/blob/6e3c9fae2c6f0b7814a491320def03a5bfcd4ace/Resources/WakaMart%20Retail_.png)
+>>>>>>> c6f0707176912db1054c99937a1149cb16327b98
 
 <br/>
 
