@@ -1,8 +1,8 @@
 # Problem Statement
 
-**WakaMart,** a retail and distribution company in Nigeria, launched a **shrinkage analysis** project to **investigate losses caused by under-delivered and missing inventory across its nationwide operations** which have significantly impacted the company’s profitability and logistics efficiency between May 2024 and December 2024.
+**WakaMart,** a retail and distribution company in Nigeria, launched a **supply chain shrinkage analysis** project to **investigate losses caused by under-delivered and missing inventory across its nationwide operations** which have significantly impacted the company’s profitability between May 2024 and December 2024.
 
-The project focuses on the following Key Performance Indicators (KPIs); **Total Financial Shrinkage** across all products and locations, **Shrinkage Rate** by region and location (planned vs actual units), **Units Lost** per Product, **Warehouse and Route-Based** Shrinkage Patterns, and **Perishable vs Non-Perishable** Shrinkage Contribution. 
+The project focuses on the following Key Performance Indicators (KPIs); **Total Financial Shrinkage** across all products and locations, **Shrinkage Rate** (planned vs actual units), **Units Lost** per Product, **Warehouse and Route-Based** Shrinkage Patterns, and **Perishable vs Non-Perishable** Shrinkage Contribution. 
 
 These insights will help the **Operations team** prioritize corrective actions on high-loss SKUs and supply routes, and reassess inventory control practices and distribution planning.
 
@@ -10,17 +10,17 @@ These insights will help the **Operations team** prioritize corrective actions o
 
 # Business Objectives
 
-The overall objective of this project is to **identify, quantify, and reduce product shrinkage** across WakaMart’s supply chain, using insights to support the Operations Team in implementing high-impact, evidence-based improvements in distribution and inventory control.
+The overall objective of this project is to **identify, quantify, and find ways to reduce product shrinkage** across WakaMart’s supply chain.
 
-To achieve this, three Key Business Questions were explored and their sub-components:
+To achieve this, three Key Business Questions were explored:
 
 **1. Which Products Are Most Responsible for Shrinkage, and How Much Money Are We Losing?**
 
-* 1.1: Which products experienced the highest total units lost across all shipments?
+* 1.1: Which products experienced the highest total units lost across all shipments in 8 months?
 
 * 1.2: What is the cumulative financial loss per product over the last 8 months?
 
-* 1.3: Which products are generating negative margins due to shrinkage, losing more than they earn?
+* 1.3: Which products are generating negative margins (losing more than they earn) due to shrinkage?
 
 **2. Which Locations Are Losing the Most Inventory, and Is It a Regional Pattern?**
 
@@ -30,17 +30,9 @@ To achieve this, three Key Business Questions were explored and their sub-compon
 
 * 2.3: Which warehouse is associated with the highest outbound shrinkage volume?
 
-* 2.4: How has shrinkage changed over time across regions, and where is it worsening or improving?
+* 2.4: Are there specific routes or locations where perishable shrinkage consistently spiked?
 
-**3. How Much Shrinkage Comes from Perishable Goods, and Is It Worth Investing in Cold Chain?**
-
-* 3.1: What percentage of total shrinkage units are from perishable products?
-
-* 3.2: What is the monthly financial loss from perishables compared to non-perishables?
-
-* 3.3: Which perishable categories account for the highest shrinkage cost?
-
-* 3.4: Are there specific routes or locations where perishable shrinkage consistently spikes?
+* 2.5: How has shrinkage changed over time across regions, and where is it worsening or improving?
 
 <br/>
 
@@ -48,15 +40,15 @@ To achieve this, three Key Business Questions were explored and their sub-compon
 
 This analysis is powered by a logistics dataset from WakaMart’s retail and operations, spanning the period from May 2024 to December 2024. The dataset consists of four key relational tables:
 
-1. **FactRetail**: This is the central fact table that contains the logistics records of product movements, from warehouse dispatch to store receipt. Each row represents a single shipment of a specific product between two locations, along with the planned and actual quantities delivered.
+1. **FactRetail**: This is the table that contains the logistics records of product movements, from warehouse dispatch to store receipt. Each row represents a single shipment of a specific product between two locations, along with the planned and actual quantities delivered.
 
 Metrics Calculated from This Table: Units_Lost (PlannedUnits - ActualUnitsReceived), Shrinkage Rate ((Units_Lost / PlannedUnits) * 100), Time-based trends (monthly breakdowns by DispatchDate), and Route-level losses (FromLocationID to ToLocationID).
 
-2. **DimProduct**: This is the product table used to enrich the fact table with category-level product data. Each row represents a unique product stocked by WakaMart.
+2. **DimProduct**: This is the product table used to support the fact table with category-level product data. Each row represents a unique product stocked by WakaMart.
 
 Metrics Calculated from This Table: Aggregated shrinkage by ProductName, Category-level shrinkage cost breakdowns, and Margin loss analysis per product (Profit - Shrinkage Loss)
 
-3. **DimLocation**: This is the location dimension table used to provide names for warehouse and store IDs.
+3. **DimLocation**: This is the location dimension table used to provide names for warehouses and stores.
 
 Metrics Calculated from This Table: Units lost by receiving and shipping locations, Regional trend analysis of shrinkage volume and rates, and Loss patterns by route
 
@@ -64,6 +56,48 @@ Metrics Calculated from This Table: Units lost by receiving and shipping locatio
 
 <br/>
 
+<img src= "WakaMart_Supply_Chain_Shrinkage_Analysis\Resources\WakaMart Retail.png">
+
+<br/>
+
+# Technical Details
+
+This project used SQL for all stages of data cleaning and analysis, with a focus on uncovering shrinkage patterns across WakaMart's operations between May 2024 and December 2024.
+
+### 1. Skills & Functions Used
+
+Skills: CASE, JOIN, GROUP BY, CTE, Aggregate Functions (SUM, AVG), ROW_NUMBER
+
+
+#### 2. Steps Overview:
+
+**Initial Inspection**: Checked all source tables (DimProduct, DimLocation, DimDate,  FactRetail) for missing values, duplicate entries, inconsistent data types, and ambiguous category names.
+
+**Cleaning & Standardization**: Removed nulls, handled duplicates, converted types.
+
+**Calculated Metrics**: Units lost, shrinkage rates, financial losses, and loss-per-unit calculations using derived columns.
+
+<br/>
+
+#### Data Cleaning Actions:
+
+Here are the key cleaning operations and why they were necessary:
+
+1. **Handled Missing or Null Values**
+
+Purpose: Ensured analysis was not skewed by incomplete data in critical columns (PlannedUnits, ActualUnitsReceived).
+
+2. **Removed Duplicates**
+
+Purpose: Avoided double-counting shrinkage in shipment or product records.
+
+3. **Normalized Categorical Fields**
+
+Purpose: Fixed inconsistent naming in product names and categories (e.g., “Dairy ” vs. “Dairy”, trailing spaces, and misspellings).
+
+4. **Converted Data Types**
+
+Purpose: Standardize Date columns from VARCHAR to DATE for accurate analysis.
 
 
 
@@ -79,13 +113,13 @@ WakaMart must urgently **install and audit CCTV footage on loading bays to monit
 
 <br/>
 
-# Key Findings
+# Insights
 
 Identifying what products are at the centre of the shrinkage crisis. Understanding product-level impact helps us trace the first layer of inefficiency: the demand-supply mismatch that turns profit into loss.
 
 ## 1. Where Is the Shrinkage Bleeding Us the Most? (Product-Level Analysis)
 
-### 1.1 Core products like Fonio (Acha), Agege Bread, Mallam Dairy, and Pepsi are losing thousands of units
+### 1.1 Core products like Fonio (Acha), Agege Bread, Mallam Dairy, and Pepsi have lost thousands of units
 
         WITH Product_Loss AS(
         SELECT 
@@ -104,13 +138,11 @@ Identifying what products are at the centre of the shrinkage crisis. Understandi
         FROM Product_Loss
         ORDER BY Units_Lost DESC;
 
-In 8 months, **Fonio (Acha)** recorded the **highest inventory shrinkage** at Wakamart with **5,733 units lost**. This was followed by **Agege Bread with 5,278 units**, and **Mallam Dairy with 5,254 units**. **Pepsi Bottle ranked fourth, losing 5,063 units**, while **Basmati Rice (5kg) completed the top five with 5,012 units lost**. These five products alone account for **26,340 units** of confirmed shrinkage, making them critical loss drivers.
-
-These product lines need urgent review in terms of loading processes, storage protocols, and cross-check verification.
+In 8 months, **Fonio (Acha)** recorded the **highest inventory shrinkage** at Wakamart with **5,733 units lost**. This was followed by **Agege Bread with 5,278 units**, and **Mallam Dairy with 5,254 units**. **Pepsi Bottle ranked fourth, losing 5,063 units**, while **Basmati Rice (5kg) completed the top five with 5,012 units lost**. These five products alone account for **26,340 units** of confirmed shrinkage, **5.7%** of overall units lost, making them critical loss drivers.
 
 <br/>
 
-### 1.2 Consequently, what we lose in stock, we lose tenfold in revenue. Fonio alone cost Wakamart nearly ₦146 million in shrinkage. These losses are no longer operational but financial
+### 1.2 Consequently, what we lost in stock, we lost in revenue. Fonio alone cost Wakamart nearly ₦146 million in shrinkage
 
         WITH Loss AS (
         SELECT
@@ -137,7 +169,7 @@ Meanwhile, some products accrued minimal financial impact compared to the top-ti
 
 <br/>
 
-### 1.3 ...Because shrinkage now reverses profits. Some products, like Sorghum and Abakaliki Rice, have flipped into negative margin territory. For every ₦1 in expected profit, we lose ₦1.16
+### 1.3 As a result, some products like Sorghum and Abakaliki Rice now reverse profits because of shrinkage since they have flipped into the negative margin territory (for every ₦1 in expected profit, we lost ₦1.16)
 
         WITH shrinkage_to_profit AS(
         SELECT
@@ -167,15 +199,12 @@ There are products where the financial loss from shrinkage exceeded the expected
 
 Even widely distributed items like **Agege Bread and Smoked Turkey** showed negative returns, with losses just **2% to 4% higher** than expected earnings.
 
-This calls for **immediate reviews of handling, packaging, vendor quality, or internal theft** linked to these products.
 
 <br/>
 
 <br/>
 
 ## 2. Which Locations Are Losing the Most Inventory and Is It a Regional Pattern?
-
-After identifying the top culprits by product, we turn to where shrinkage is most concentrated. Our lens widens to detect if certain stores, warehouses, or even whole regions are systematically leaking stock.
 
 ### 2.1 With nearly 150,000 units lost, Enugu Retail Park is at the heart of our product loss
 
@@ -189,7 +218,7 @@ After identifying the top culprits by product, we turn to where shrinkage is mos
         GROUP BY LocationName
         ORDER BY Units_Lost DESC;
 
-**Enugu Retail Park recorded the highest number of under-delivered or lost units at 149,579 units**, making it Wakamart’s most affected receiving location by a significant margin. When compared to the next highest location, **Kano Market Square, which recorded 81,687 units lost, Enugu’s loss volume was 83% higher**. The difference was similarly large when compared to **Ikeja Supermart, which recorded 80,588 units, reflecting an 86% increase**.
+**Enugu Retail Park recorded the highest number of under-delivered units at 149,579 units**. When compared to the next highest location, **Kano Market Square, which recorded 81,687 units lost, Enugu’s loss volume was 83% higher**. The difference was similarly large when compared to **Ikeja Supermart, which recorded 80,588 units, reflecting an 86% increase**.
 
 Other major receiving points like **Port Harcourt Mall and Abuja Urban Shop** experienced shrinkage of **75,945 units and 75,565 units** respectively, both just over half of what was lost at Enugu.
 
@@ -220,13 +249,13 @@ Other major receiving points like **Port Harcourt Mall and Abuja Urban Shop** ex
         FROM Avg_Shrinkage_Rate_
         ORDER BY Avg_Shrinkage_Rate DESC;
 
-While **Lagos** did not record the highest number of units lost in absolute terms, its consistently higher shrinkage rate indicates a more **systemic issue** with delivery accuracy or product handling per shipment, rather than one-off losses in volume.
+While **Lagos** did not record the highest number of units lost in absolute terms, its consistently higher shrinkage rate indicates a more **systemic issue** with delivery accuracy rather than one-off losses in volume.
 
 **Lagos recorded the highest average shrinkage rate at 16.13%**. Compared to **Kano**, which had a **shrinkage rate of 15.29%**, Lagos experienced a **5.5%** higher rate of shrinkage. When compared to **Enugu (15.19%)**, the difference was **6.2%**, and when compared to **Rivers**, which had the **lowest rate at 15.11%**, Lagos's shrinkage rate was **6.7%** higher.
 
 <br/>
 
-### 2.3 ...But upstream issues are just as critical. Buguma Warehouse accounts for over 225,000 units lost on outbound shipments (nearly 3x higher than Apapa Warehouse)
+### 2.3 ...But upstream issues are just as critical. Buguma Warehouse in Enugu accounts for over 225,000 units lost on outbound shipments (nearly 3x higher than Apapa Warehouse)
 
         WITH Shrinkage AS(
         SELECT 
@@ -244,130 +273,11 @@ While **Lagos** did not record the highest number of units lost in absolute term
         ORDER BY Units_Lost DESC;
 
 
-Products dispatched from **Buguma Warehouse** are disproportionately prone to shrinkage by the time they reach retail destinations. Buguma's shrinkage is **43.3%** higher than that of **Kano Depot**, which lost **157,252 units**, and a staggering **179.9% more than Apapa Warehouse**, which recorded only **80,588 units lost**.
+Products dispatched from **Buguma Warehouse** are disproportionately prone to shrinkage by the time they reach retail destinations. Buguma's shrinkage is **43.3%** higher than that of **Kano Depot**, which lost **157,252 units**, and **179.9% more than Apapa Warehouse**, which recorded **80,588 units lost**.
 
 <br/>
 
-### 2.4 While Lagos and Kano show ups and downs in Regional Trends, Rivers Region’s shrinkage is steadily rising
-
-        WITH Regional_Shrinkage AS(
-        SELECT
-        Region,
-        DATENAME(MONTH, DispatchDate) AS Month,
-        SUM(PlannedUnits - ActualUnitsReceived) AS Units_Lost,
-        ROW_NUMBER() OVER(PARTITION BY Region ORDER BY MIN(DATEPART(MONTH, DispatchDate))) AS Row_Num
-        FROM FactRetail f
-        LEFT JOIN DimLocation l
-        ON l.LocationID = f.FromLocationID
-        WHERE PlannedUnits > ActualUnitsReceived
-        GROUP BY Region, DATENAME(MONTH, DispatchDate))
-        
-        SELECT 
-        Region,
-        Month,
-        Units_Lost,
-        LAG(Units_Lost) OVER(PARTITION BY Region ORDER BY Row_Num) AS Prev_Units_Lost,
-        CAST(1.0*(Units_Lost - LAG(Units_Lost) OVER(PARTITION BY Region ORDER BY Row_Num))/LAG(Units_Lost) OVER(PARTITION BY Region ORDER BY Row_Num) AS DECIMAL(4,2)) * 100 AS Percent_Change
-        FROM Regional_Shrinkage
-
-
-Over the last 8 months (May to December 2024), each region in Wakamart's distribution network has displayed distinct and important trends in **shrinkage loss**.
-
-**Kano Region** began with **21,596 units lost** in **May** and ended with **18,712 units** in **December**, indicating an **overall decline**. The **most dramatic drop** occurred between **May and June, with a 20% decrease**. However, inconsistency followed, with fluctuations including a **17%** rise in July and a **7%** rebound in November.
-
-**Lagos Region** showed a similar volatile pattern. Starting at **11,696 units** lost in **May** but closed **December** with **11,028 units lost**, nearly back to its May figures. This region experienced its sharpest improvement in **June, dropping 26% to 8,670**.
-
-**Rivers Region**, however, showed the **highest and most consistent unit losses overall**. Starting from **27,233 units in May**, it **peaked** in **November at 30,463 units**. The largest single-month improvement was in **December, with a 15% decrease, dropping losses to 26,020 units**. Still, this was the highest cumulative shrinkage of all three regions, and the **only region where the overall losses increased over time**.
-
-<br/>
-We've now mapped out what products are lost and where the damage is concentrated. But a key business question remains: Are our perishables worth saving, or should we rethink the cold chain investment?
-<br/>
-
-## 3. How Much Shrinkage Comes from Perishable Goods and Is It Worth Investing in Cold Chain?
-Having exposed the worst-hit products and locations, we now turn to the most sensitive category in retail: perishables. The final act questions whether we should pour more into preservation—or cut our losses.
-### 3.1 Perishables represent a third of total unit loss at 32%
-
-        WITH Units_Lost AS(
-        SELECT 
-        PerishableFlag AS Perishable_Flag,
-        SUM(PlannedUnits - ActualUnitsReceived) AS Units_Lost
-        FROM FactRetail f
-        LEFT JOIN DimProduct p
-        ON p.ProductID = f.ProductID
-        WHERE PlannedUnits > ActualUnitsReceived
-        GROUP BY PerishableFlag),
-        
-        Aggregated AS(
-        SELECT 
-        MAX(CASE WHEN Perishable_Flag = 'Yes' THEN Units_Lost END) AS Perishable_Loss,
-        SUM(Units_Lost) AS Units_Lost
-        FROM Units_Lost)
-        
-        SELECT 
-        CAST((1.0*Perishable_Loss)/Units_Lost AS DECIMAL(4,2)) * 100 AS Perishable_Percent
-        FROM Aggregated
-
-Nearly one in every three lost units is a perishable item as perishable products accounted for **32% of the total shrinkage units across all Wakamart locations**, while **non-perishable goods represent the remaining 68%**.
-
-<br/>
-
-### 3.2 ...But despite their volume, perishables caused only 28% of financial shrinkage. The majority loss comes from non-perishables
-
-        WITH Perishables AS(
-        SELECT 
-        PerishableFlag AS Perishable_Flag,
-        ProductName AS Product_Name,
-        (PlannedUnits - ActualUnitsReceived) * UnitPrice AS Financial_Loss
-        FROM FactRetail f
-        LEFT JOIN DimProduct p
-        ON p.ProductID = f.ProductID
-        WHERE PlannedUnits > ActualUnitsReceived)
-        
-        SELECT
-        Perishable_Flag,
-        SUM(Financial_Loss) AS Financial_Loss
-        FROM Perishables
-        GROUP BY Perishable_Flag
-
-
-**Perishable products** accounted for approximately **₦2.95 billion** in financial losses, while non-perishables incurred a much steeper loss of nearly **₦7.51 billion**. This means that **perishables made up only 28%** of the total financial shrinkage, whereas **non-perishables contributed a dominant 72% of the total loss**. The financial gap between the two categories stands at **44%**, with non-perishables causing over ₦4.5 billion more in losses than their perishable products.
-
-<br/>
-
-### 3.3 ...And Among perishables, dairy stands out at ₦1.11 billion lost, accounting for 38% of perishable loss
-
-        WITH Perishable AS(
-        SELECT 
-        PerishableFlag AS Perishable_Flag,
-        ProductName AS Product_Name,
-        Category,
-        PlannedUnits - ActualUnitsReceived AS Units_Lost,
-        (PlannedUnits - ActualUnitsReceived) * UnitPrice AS Financial_Loss
-        FROM FactRetail f
-        LEFT JOIN DimProduct p
-        ON p.ProductID = f.ProductID
-        WHERE PlannedUnits > ActualUnitsReceived),
-        
-        Category_Financial_Loss AS(
-        SELECT
-        Category,
-        Perishable_Flag,
-        CAST(SUM(Financial_Loss) AS DECIMAL(13,2)) AS Total_Financial_Loss
-        FROM Perishable
-        WHERE Perishable_Flag = 'Yes'
-        GROUP BY Category, Perishable_Flag)
-        
-        SELECT 
-        TOP 1 
-        Category
-        FROM Category_Financial_Loss
-        WHERE Perishable_Flag = 'Yes'
-
-**Dairy products** lead in shrinkage financial loss with a loss of over **₦1.11 billion**. Following closely after Dairy is the **Bakery category**, which recorded approximately **₦736.86 million in shrinkage costs**, and **Meat**, with losses nearing **₦625.96 million**. In contrast, **Frozen Foods and Beverages** trail behind with **₦384.65 million and ₦92.05** million in losses respectively, placing **Dairy’s** loss at over **1,108%** higher than **Beverages** and **189%** higher than **Frozen Foods**.
-
-<br/>
-
-### 3.4 Buguma Warehouse to Enugu Retail Park alone experiences 81% more perishable shrinkage than any other
+### 2.4 Buguma Warehouse to Enugu Retail Park (Store) route experienced 81% more perishable shrinkage than any other
 
         WITH Shrinkage AS(
         SELECT 
@@ -392,10 +302,46 @@ Nearly one in every three lost units is a perishable item as perishable products
         FROM Shrinkage
         ORDER BY Units_Lost DESC;
 
-The **Buguma Warehouse to Enugu Retail Park** route stands out as the most problematic pathway for perishable product losses, with **48,571 units lost**, a volume that surpasses all other major routes by a significant margin. 
+The **Buguma Warehouse to Enugu Retail Park** route stands out as the most problematic pathway for **perishable product** losses, with **48,571 units lost**, a volume that surpasses all other major routes by a significant margin. 
 
 In comparison, the **Kano Depot to Kano Market Square** and **Kano Depot to Abuja Urban Shop** routes recorded **26,810** and **25,664** units lost respectively, while the **Apapa Warehouse to Ikeja Supermart** and **Buguma Warehouse to Port Harcourt Mall** routes followed closely with **24,442** and **24,313** units lost.
 
+
+<br/>
+
+### 2.5 While Lagos and Kano show ups and downs in Regional Trends, Rivers Region’s shrinkage is steadily rising
+
+        WITH Regional_Shrinkage AS(
+        SELECT
+        Region,
+        DATENAME(MONTH, DispatchDate) AS Month,
+        SUM(PlannedUnits - ActualUnitsReceived) AS Units_Lost,
+        ROW_NUMBER() OVER(PARTITION BY Region ORDER BY MIN(DATEPART(MONTH, DispatchDate))) AS Row_Num
+        FROM FactRetail f
+        LEFT JOIN DimLocation l
+        ON l.LocationID = f.FromLocationID
+        WHERE PlannedUnits > ActualUnitsReceived
+        GROUP BY Region, DATENAME(MONTH, DispatchDate))
+        
+        SELECT 
+        Region,
+        Month,
+        Units_Lost,
+        LAG(Units_Lost) OVER(PARTITION BY Region ORDER BY Row_Num) AS Prev_Units_Lost,
+        CAST(1.0*(Units_Lost - LAG(Units_Lost) OVER(PARTITION BY Region ORDER BY Row_Num))/LAG(Units_Lost) OVER(PARTITION BY Region ORDER BY Row_Num) AS DECIMAL(4,2)) * 100 AS Percent_Change
+        FROM Regional_Shrinkage
+
+
+Over the last 8 months (May to December 2024), each region in Wakamart's distribution network has displayed distinct trends in **shrinkage loss**.
+
+**Kano Region** began with **21,596 units lost** in **May** and ended with **18,712 units** in **December**, indicating an **overall decline**. The **most dramatic drop** occurred between **May and June, with a 20% decrease**. However, inconsistency followed, with fluctuations including a **17%** rise in July and a **7%** rebound in November.
+
+**Lagos Region** showed a similar volatile pattern. Starting at **11,696 units** lost in **May** but closed **December** with **11,028 units lost**, nearly back to its May figures. This region experienced its sharpest improvement in **June, dropping 26% to 8,670**.
+
+**Rivers Region**, however, showed the **highest and most consistent unit losses overall**. Starting from **27,233 units in May**, it **peaked** in **November at 30,463 units**. The largest single-month improvement was in **December, with a 15% decrease, dropping losses to 26,020 units**. Still, this was the highest cumulative shrinkage of all three regions, and the **only region where the overall losses increased over time**.
+
+<br/>
+We've now mapped out what products are lost and where the damage is concentrated. But a key business question remains: Are our perishables worth saving, or should we rethink the cold chain investment?
 
 <br/>
 
@@ -418,17 +364,16 @@ In comparison, the **Kano Depot to Kano Market Square** and **Kano Depot to Abuj
 
 * Evaluate whether to delist or repackage the products for better inventory control.
 
+
 ## Which Locations Are Losing the Most Inventory and Is It a Regional Pattern?
 
 #### 2.1 Enugu Retail Park Has the Highest Unit Loss (149,579 Units)
 
 * Enforce double-verification protocols.
 
-* Create a weekly loss report specific to Enugu and escalate any irregularities above 5% deviation.
+* Create a weekly loss report specific to Enugu and escalate any irregularities.
 
 #### 2.2 Lagos Has the Highest Average Shrinkage Rate (16.13%)
-
-* Perform forecast vs. actual delivery reconciliation weekly to detect planning gaps.
 
 * Review last-mile partner contracts for Lagos and consider replacements for underperformers.
 
@@ -438,73 +383,18 @@ In comparison, the **Kano Depot to Kano Market Square** and **Kano Depot to Abuj
 
 * Install and audit CCTV footage on loading bays to monitor discrepancies.
 
-#### 2.4 Rivers Region Is the Only One with Increasing Shrinkage Over Time
-
-* Mandate weekly shrinkage performance reviews at all Rivers State locations.
-
-## How Much Shrinkage Comes from Perishable Goods and Is It Worth Investing in Cold Chain?
-#### 3.1 Perishables Account for 32% of Units Lost
-
-* Train floor staff on FIFO and stock rotation best practices for perishables.
-
-#### 3.2 Perishables Represent 28% of Financial Loss, Non-Perishables at 72%
-
-* Install and audit CCTV footage on loading bays to monitor discrepancies.
-
-#### 3.3 Dairy Accounts for ₦1.11 Billion in Losses (38% of Perishable Losses)
-
-* Prioritise closed-loop chilled transport for dairy logistics above all other perishables.
-
-#### 3.4 Buguma–Enugu Route Has 81% More Perishable Shrinkage Than Other Routes
+#### 2.4 Buguma–Enugu Route Has 81% More Perishable Shrinkage Than Other Routes
 
 * Immediately review driver logs, vehicle conditions, and time delays on this route.
 
+#### 2.5 Rivers Region Is the Only One with Increasing Shrinkage Over Time
+
+* Mandate weekly shrinkage performance reviews at all Rivers State locations.
+
+
 
 <br/>
 
-# Technical Details
-
-This project used SQL for all stages of data cleaning and analysis, with a focus on uncovering shrinkage patterns across WakaMart's operations between May 2024 and December 2024.
-
-#### Tool Used:
-
-**SQL Server** — for data cleaning, aggregation, and metric calculation
-
-<br/>
-
-#### Data Flow Steps Overview:
-
-**Initial Inspection**: Checked all source tables (DimProduct, DimLocation, FactRetail) for missing values, duplicate entries, inconsistent data types, and ambiguous category names.
-
-**Cleaning & Standardization**: Removed nulls, handled duplicates, converted types.
-
-**Calculated Metrics**: Units lost, shrinkage rates, financial losses, and loss-per-unit calculations using derived columns.
-
-**Analysis**
-
-<br/>
-
-#### Data Cleaning Actions:
-
-Here are the key cleaning operations and why they were necessary:
-
-1. **Handling Missing or Null Values**
-
-Purpose: Ensure analysis was not skewed by incomplete data in critical columns (PlannedUnits, ActualUnitsReceived).
-
-2. **Removing Duplicates**
-
-Purpose: Avoid double-counting shrinkage in shipment or product records.
-
-3. **Normalizing Categorical Fields**
-
-Purpose: Fix inconsistent naming in product names and categories (e.g., “Dairy ” vs. “Dairy”, trailing spaces, and misspellings).
-
-4. **Converting Data Types**
-
-Purpose: Standardize Date columns from VARCHAR to DATE for accurate analysis.
-
-<br/>
 
 # Assumptions and Caveats
 
