@@ -56,7 +56,7 @@ Metrics Calculated from This Table: Units lost by receiving and shipping locatio
 
 <br/>
 
-<img src= "WakaMart_Supply_Chain_Shrinkage_Analysis\Resources\WakaMart Retail.png">
+<img src= "WakaMart_Supply_Chain_Shrinkage_Analysis\Resources\WakaMart Retail.png"/>
 
 <br/>
 
@@ -69,7 +69,7 @@ This project used SQL for all stages of data cleaning and analysis, with a focus
 Skills: CASE, JOIN, GROUP BY, CTE, Aggregate Functions (SUM, AVG), ROW_NUMBER
 
 
-#### 2. Steps Overview:
+### 2. Steps Overview:
 
 **Initial Inspection**: Checked all source tables (DimProduct, DimLocation, DimDate,  FactRetail) for missing values, duplicate entries, inconsistent data types, and ambiguous category names.
 
