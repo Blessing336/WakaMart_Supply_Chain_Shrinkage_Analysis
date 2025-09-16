@@ -56,7 +56,7 @@ Metrics Calculated from This Table: Units lost by receiving and shipping locatio
 
 <br/>
 
-<img src= "WakaMart Retail_.png" alt= "Data_Model">
+<img src= "Resources\WakaMartRetail.png" alt= "Data_Model">
 
 
 <br/>
